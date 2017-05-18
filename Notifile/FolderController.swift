@@ -23,6 +23,20 @@ class FolderController {
         
         return fetchResults ?? []
     }
+
+    @discardableResult static func createFolderWith(url: URL, observationType: ObservationType) -> Folder {
+        let folder = Folder(url: url, observationType: observationType, isObserving: true)
+        
+        saveToPersistentStore()
+        
+        return folder
+    }
+    
+    static func mockFolders() {
+        
+        let url = URL(string: "file:///Users/SpencerCurtis/Desktop/")
+        createFolderWith(url: url!, observationType: .added)
+    }
     
     
     static func getContentsOf(folder: Folder) {

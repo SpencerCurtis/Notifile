@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, AddFolderDelegate {
 
     @IBOutlet weak var tableView: NSTableView!
     
@@ -20,8 +20,35 @@ class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        FolderController.mockFolders()
         self.tableView.dataSource = self
+        self.tableView.delegate = self
+    }
+    
+    @IBAction func addFolderButtonClicked(_ sender: Any) {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        
+        guard let addFolderWC = storyboard.instantiateController(withIdentifier: "AddFolderWindowController") as? NSWindowController, let window = addFolderWC.window, let addFolderVC = addFolderWC.contentViewController as? AddFolderViewController else { return }
+
+        addFolderVC.delegate = self
+        
+        self.view.window?.beginSheet(window, completionHandler: nil)
+    }
+    
+    @IBAction func removeFolderButtonClicked(_ sender: Any) {
+        
+    }
+    
+    func folderWasCreated(folder: Folder?) {
+        self.tableView.reloadData()
+    }
+    
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return FolderController.folders.count
+    }
+    
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        return 28
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {

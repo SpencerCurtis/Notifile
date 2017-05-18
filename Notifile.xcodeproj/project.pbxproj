@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4647CD851ECE425000076ABB /* FolderNotificationCheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4647CD841ECE425000076ABB /* FolderNotificationCheckboxCell.swift */; };
+		468E7A6A1ECE529A006B4DB1 /* AddFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468E7A691ECE529A006B4DB1 /* AddFolderViewController.swift */; };
 		46A8CE351ECD6885002E6E71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE341ECD6885002E6E71 /* AppDelegate.swift */; };
 		46A8CE391ECD6885002E6E71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A8CE381ECD6885002E6E71 /* Assets.xcassets */; };
 		46A8CE3C1ECD6885002E6E71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46A8CE3A1ECD6885002E6E71 /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		4647CD841ECE425000076ABB /* FolderNotificationCheckboxCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderNotificationCheckboxCell.swift; sourceTree = "<group>"; };
+		468E7A691ECE529A006B4DB1 /* AddFolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFolderViewController.swift; sourceTree = "<group>"; };
 		46A8CE311ECD6885002E6E71 /* Notifile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notifile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46A8CE341ECD6885002E6E71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46A8CE381ECD6885002E6E71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 		46A8CE611ECE0C97002E6E71 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				468E7A691ECE529A006B4DB1 /* AddFolderViewController.swift */,
 				46A8CE491ECDF38F002E6E71 /* ObservedFoldersListViewController.swift */,
 			);
 			name = "View Controllers";
@@ -227,6 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				468E7A6A1ECE529A006B4DB1 /* AddFolderViewController.swift in Sources */,
 				46A8CE551ECDFF11002E6E71 /* Notifile.xcdatamodeld in Sources */,
 				46A8CE5B1ECE015A002E6E71 /* FolderController.swift in Sources */,
 				46A8CE501ECDF4C9002E6E71 /* NotificationTriggerTableViewCellView.swift in Sources */,
