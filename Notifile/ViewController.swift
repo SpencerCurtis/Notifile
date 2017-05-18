@@ -10,18 +10,43 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var pathLabel: NSTextField!
+    @IBOutlet weak var changeObservedLabel: NSTextField!
+    
+    var observer: FolderObserver?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
+        
 
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
+    }
+    
+    @IBAction func openButtonTapped(_ sender: Any) {
+        
+        let openPanel = NSOpenPanel()
+        
+        openPanel.allowsMultipleSelection = false
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        
+        openPanel.begin { (result) in
+            
+            guard let path = openPanel.url, result == NSFileHandlingPanelOKButton else { return }
+            
+            self.observer = FolderObserver(url: path)
+            
+            self.pathLabel.stringValue = path.absoluteString
+            
+            self.observer?.observeChanges()
+            
+            
         }
+
+        
+        
     }
-
-
+   
 }
 
