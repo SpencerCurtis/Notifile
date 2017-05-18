@@ -7,20 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4647CD851ECE425000076ABB /* FolderNotificationCheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4647CD841ECE425000076ABB /* FolderNotificationCheckboxCell.swift */; };
 		46A8CE351ECD6885002E6E71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE341ECD6885002E6E71 /* AppDelegate.swift */; };
-		46A8CE371ECD6885002E6E71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE361ECD6885002E6E71 /* ViewController.swift */; };
 		46A8CE391ECD6885002E6E71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46A8CE381ECD6885002E6E71 /* Assets.xcassets */; };
 		46A8CE3C1ECD6885002E6E71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46A8CE3A1ECD6885002E6E71 /* Main.storyboard */; };
 		46A8CE481ECD69D4002E6E71 /* FolderObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE471ECD69D4002E6E71 /* FolderObserver.swift */; };
 		46A8CE4A1ECDF38F002E6E71 /* ObservedFoldersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE491ECDF38F002E6E71 /* ObservedFoldersListViewController.swift */; };
 		46A8CE4E1ECDF3E3002E6E71 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A8CE4D1ECDF3E3002E6E71 /* CloudKit.framework */; };
 		46A8CE501ECDF4C9002E6E71 /* NotificationTriggerTableViewCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE4F1ECDF4C9002E6E71 /* NotificationTriggerTableViewCellView.swift */; };
+		46A8CE551ECDFF11002E6E71 /* Notifile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE531ECDFF11002E6E71 /* Notifile.xcdatamodeld */; };
+		46A8CE571ECDFFCF002E6E71 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE561ECDFFCF002E6E71 /* CoreDataStack.swift */; };
+		46A8CE591ECE0024002E6E71 /* Folder+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE581ECE0024002E6E71 /* Folder+Convenience.swift */; };
+		46A8CE5B1ECE015A002E6E71 /* FolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE5A1ECE015A002E6E71 /* FolderController.swift */; };
+		46A8CE5D1ECE0AF8002E6E71 /* File+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE5C1ECE0AF8002E6E71 /* File+Convenience.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4647CD841ECE425000076ABB /* FolderNotificationCheckboxCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderNotificationCheckboxCell.swift; sourceTree = "<group>"; };
 		46A8CE311ECD6885002E6E71 /* Notifile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notifile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46A8CE341ECD6885002E6E71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		46A8CE361ECD6885002E6E71 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		46A8CE381ECD6885002E6E71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		46A8CE3B1ECD6885002E6E71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		46A8CE3D1ECD6885002E6E71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -29,6 +34,11 @@
 		46A8CE4B1ECDF3E1002E6E71 /* Notifile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notifile.entitlements; sourceTree = "<group>"; };
 		46A8CE4D1ECDF3E3002E6E71 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		46A8CE4F1ECDF4C9002E6E71 /* NotificationTriggerTableViewCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTriggerTableViewCellView.swift; sourceTree = "<group>"; };
+		46A8CE541ECDFF11002E6E71 /* Notifile.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Notifile.xcdatamodel; sourceTree = "<group>"; };
+		46A8CE561ECDFFCF002E6E71 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		46A8CE581ECE0024002E6E71 /* Folder+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Folder+Convenience.swift"; sourceTree = "<group>"; };
+		46A8CE5A1ECE015A002E6E71 /* FolderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderController.swift; sourceTree = "<group>"; };
+		46A8CE5C1ECE0AF8002E6E71 /* File+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "File+Convenience.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,15 +73,12 @@
 		46A8CE331ECD6885002E6E71 /* Notifile */ = {
 			isa = PBXGroup;
 			children = (
-				46A8CE4F1ECDF4C9002E6E71 /* NotificationTriggerTableViewCellView.swift */,
-				46A8CE4B1ECDF3E1002E6E71 /* Notifile.entitlements */,
-				46A8CE471ECD69D4002E6E71 /* FolderObserver.swift */,
-				46A8CE341ECD6885002E6E71 /* AppDelegate.swift */,
-				46A8CE361ECD6885002E6E71 /* ViewController.swift */,
-				46A8CE491ECDF38F002E6E71 /* ObservedFoldersListViewController.swift */,
-				46A8CE381ECD6885002E6E71 /* Assets.xcassets */,
-				46A8CE3A1ECD6885002E6E71 /* Main.storyboard */,
-				46A8CE3D1ECD6885002E6E71 /* Info.plist */,
+				46A8CE5E1ECE0C75002E6E71 /* Models */,
+				46A8CE601ECE0C8F002E6E71 /* Views */,
+				46A8CE5F1ECE0C80002E6E71 /* Model Controllers + Helpers */,
+				46A8CE611ECE0C97002E6E71 /* View Controllers */,
+				46A8CE631ECE0CB4002E6E71 /* Storyboards */,
+				46A8CE621ECE0CA4002E6E71 /* Resources */,
 			);
 			path = Notifile;
 			sourceTree = "<group>";
@@ -82,6 +89,62 @@
 				46A8CE4D1ECDF3E3002E6E71 /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		46A8CE5E1ECE0C75002E6E71 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				46A8CE581ECE0024002E6E71 /* Folder+Convenience.swift */,
+				46A8CE5C1ECE0AF8002E6E71 /* File+Convenience.swift */,
+				46A8CE561ECDFFCF002E6E71 /* CoreDataStack.swift */,
+				46A8CE531ECDFF11002E6E71 /* Notifile.xcdatamodeld */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		46A8CE5F1ECE0C80002E6E71 /* Model Controllers + Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				46A8CE5A1ECE015A002E6E71 /* FolderController.swift */,
+				46A8CE471ECD69D4002E6E71 /* FolderObserver.swift */,
+			);
+			name = "Model Controllers + Helpers";
+			sourceTree = "<group>";
+		};
+		46A8CE601ECE0C8F002E6E71 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				46A8CE4F1ECDF4C9002E6E71 /* NotificationTriggerTableViewCellView.swift */,
+				4647CD841ECE425000076ABB /* FolderNotificationCheckboxCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		46A8CE611ECE0C97002E6E71 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				46A8CE491ECDF38F002E6E71 /* ObservedFoldersListViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		46A8CE621ECE0CA4002E6E71 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				46A8CE4B1ECDF3E1002E6E71 /* Notifile.entitlements */,
+				46A8CE341ECD6885002E6E71 /* AppDelegate.swift */,
+				46A8CE381ECD6885002E6E71 /* Assets.xcassets */,
+				46A8CE3D1ECD6885002E6E71 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		46A8CE631ECE0CB4002E6E71 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				46A8CE3A1ECD6885002E6E71 /* Main.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,11 +227,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46A8CE371ECD6885002E6E71 /* ViewController.swift in Sources */,
+				46A8CE551ECDFF11002E6E71 /* Notifile.xcdatamodeld in Sources */,
+				46A8CE5B1ECE015A002E6E71 /* FolderController.swift in Sources */,
 				46A8CE501ECDF4C9002E6E71 /* NotificationTriggerTableViewCellView.swift in Sources */,
+				46A8CE591ECE0024002E6E71 /* Folder+Convenience.swift in Sources */,
 				46A8CE351ECD6885002E6E71 /* AppDelegate.swift in Sources */,
+				46A8CE571ECDFFCF002E6E71 /* CoreDataStack.swift in Sources */,
 				46A8CE481ECD69D4002E6E71 /* FolderObserver.swift in Sources */,
+				46A8CE5D1ECE0AF8002E6E71 /* File+Convenience.swift in Sources */,
 				46A8CE4A1ECDF38F002E6E71 /* ObservedFoldersListViewController.swift in Sources */,
+				4647CD851ECE425000076ABB /* FolderNotificationCheckboxCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +402,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		46A8CE531ECDFF11002E6E71 /* Notifile.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				46A8CE541ECDFF11002E6E71 /* Notifile.xcdatamodel */,
+			);
+			currentVersion = 46A8CE541ECDFF11002E6E71 /* Notifile.xcdatamodel */;
+			path = Notifile.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 46A8CE291ECD6885002E6E71 /* Project object */;
 }
