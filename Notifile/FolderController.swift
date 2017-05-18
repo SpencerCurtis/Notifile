@@ -13,10 +13,11 @@ class FolderController {
     
     static let fileManager = FileManager()
     
+    static let moc = CoreDataStack.context
+
+    
     static var folders: [Folder] {
-        
-        let moc = CoreDataStack.context
-        
+
         let request: NSFetchRequest<Folder> = Folder.fetchRequest()
         
         let fetchResults = try? moc.fetch(request)
@@ -111,8 +112,11 @@ class FolderController {
         return folderContents
     }
     
+    static func remove(folder: Folder) {
+        moc.delete(folder)
+    }
+    
     static func saveToPersistentStore() {
-        let moc = CoreDataStack.context
         
         do {
             try moc.save()

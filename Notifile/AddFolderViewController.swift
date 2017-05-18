@@ -14,15 +14,7 @@ class AddFolderViewController: NSViewController {
     @IBOutlet weak var observationTypePopupButton: NSPopUpButton!
     
     weak var delegate: AddFolderDelegate?
-    
-    var selectedFolderPath: URL? {
-        didSet {
-            guard let selectedFolderPath = self.selectedFolderPath else { return }
-            
-            selectedFolderPathControl.url = selectedFolderPath
-        }
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,8 +31,7 @@ class AddFolderViewController: NSViewController {
             
             guard let path = openPanel.url, result == NSFileHandlingPanelOKButton else { return }
             
-            self.selectedFolderPath = path
-            
+            self.selectedFolderPathControl.url = path
             
             // TODO: Implement this when you handle dark menu bars.
             
@@ -55,7 +46,7 @@ class AddFolderViewController: NSViewController {
     }
     
     @IBAction func saveButtonClicked(_ sender: Any) {
-        guard let selectedFolderPath = self.selectedFolderPath, let selectedItem = observationTypePopupButton.selectedItem, let observationType = ObservationType(rawValue: selectedItem.title) else { return }
+        guard let selectedFolderPath = self.selectedFolderPathControl.url, let selectedItem = observationTypePopupButton.selectedItem, let observationType = ObservationType(rawValue: selectedItem.title) else { return }
         
         let folder = FolderController.createFolderWith(url: selectedFolderPath, observationType: observationType)
         delegate?.folderWasCreated(folder: folder)
