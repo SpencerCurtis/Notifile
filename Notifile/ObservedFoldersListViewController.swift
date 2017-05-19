@@ -38,9 +38,9 @@ class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource
     @IBAction func removeFolderButtonClicked(_ sender: Any) {
         guard tableView.selectedRow != -1 else { return }
         
-        let folder = FolderController.folders[tableView.selectedRow]
+        let folder = FolderController.shared.folders[tableView.selectedRow]
         
-        FolderController.remove(folder: folder)
+        FolderController.shared.remove(folder: folder)
         
         self.tableView.reloadData()
     }
@@ -50,7 +50,7 @@ class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return FolderController.folders.count
+        return FolderController.shared.folders.count
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
@@ -60,7 +60,7 @@ class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard let tableColumn = tableColumn else { return nil }
         
-        let folder = FolderController.folders[row]
+        let folder = FolderController.shared.folders[row]
         
         switch tableColumn {
             

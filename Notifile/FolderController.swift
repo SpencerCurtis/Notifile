@@ -9,54 +9,51 @@
 import Foundation
 import CoreData
 
-class FolderController {
+class FolderController: FolderObserverDelegate {
     
-    static let fileManager = FileManager()
+    static let shared = FolderController()
     
-    static let moc = CoreDataStack.context
-
+    let fileManager = FileManager()
     
-    static var folders: [Folder] {
-
+    let moc = CoreDataStack.context
+    
+    var folders: [Folder] {
+        
         let request: NSFetchRequest<Folder> = Folder.fetchRequest()
         
         let fetchResults = try? moc.fetch(request)
         
         return fetchResults ?? []
     }
-
-    @discardableResult static func createFolderWith(url: URL, observationType: ObservationType) -> Folder {
-        let folder = Folder(url: url, observationType: observationType, isObserving: true)
+    
+    var folderObservers: [FolderObserver] = []
+    
+    @discardableResult  func createFolderWith(url: URL, observationType: ObservationType) -> Folder {
+        let folder = Folder(url: url, observationType: observationType)
         
         saveToPersistentStore()
         
         return folder
     }
     
-    static func mockFolders() {
-        
-        let url = URL(string: "file:///Users/SpencerCurtis/Desktop/")
-        createFolderWith(url: url!, observationType: .added)
-    }
-    
-    
-    static func getContentsOf(folder: Folder) {
+    func changesWereObservedFor(folderObserver: FolderObserver) {
         
     }
     
-    static func getDifferencesIn(folder: Folder) -> (addedFiles: [URL], deletedFiles: [URL]) {
+    
+    func getDifferencesIn(folder: Folder) -> (addedFiles: [URL], deletedFiles: [URL]) {
         
         guard let previousFiles = folder.files?.array as? [URL] else { return ([], []) }
-
+        
         let currentFiles = getURLsForAllFilesIn(folder: folder, getURLsRecursively: false)
         
         let addedFiles = checkForAddedFilesIn(previousFiles: previousFiles, currentFiles: currentFiles)
         let deletedFiles = checkForDeletedFilesIn(previousFiles: previousFiles, currentFiles: currentFiles)
-
+        
         return (addedFiles, deletedFiles)
     }
     
-    static func checkForAddedFilesIn(previousFiles: [URL], currentFiles: [URL]) -> [URL] {
+    func checkForAddedFilesIn(previousFiles: [URL], currentFiles: [URL]) -> [URL] {
         
         var addedFiles: [URL] = []
         
@@ -69,8 +66,36 @@ class FolderController {
         return addedFiles
     }
     
-    static func checkForDeletedFilesIn(previousFiles: [URL], currentFiles: [URL]) -> [URL] {
-
+    func setupFolderObserverFor(folder: Folder) {
+        
+        guard let folderURL = folder.url, !folder.hasObserver else { return }
+        
+        var eventTypes: DispatchSource.FileSystemEvent = []
+        
+        switch folder.observationType {
+        case .added:
+            eventTypes = [.write]
+        case .deleted:
+            eventTypes = [.delete]
+        case .both:
+            eventTypes = [.write, .delete]
+        default:
+            break
+        }
+        
+        let folderObserver = FolderObserver(url: folderURL, eventTypes: eventTypes)
+        
+        folderObserver.delegate = self
+        
+        self.folderObservers.append(folderObserver)
+        
+        folder.hasObserver = true
+        
+    }
+    
+    
+    func checkForDeletedFilesIn(previousFiles: [URL], currentFiles: [URL]) -> [URL] {
+        
         var deletedFiles: [URL] = []
         
         for previousFile in previousFiles {
@@ -80,8 +105,7 @@ class FolderController {
         return deletedFiles
     }
     
-    
-    static func getURLsForAllFilesIn(folder: Folder, getURLsRecursively: Bool) -> [URL] {
+    func getURLsForAllFilesIn(folder: Folder, getURLsRecursively: Bool) -> [URL] {
         
         guard let folderURLString = folder.urlString, let folderURL = URL(string: folderURLString), folderURL.hasDirectoryPath else { return [] }
         
@@ -112,11 +136,11 @@ class FolderController {
         return folderContents
     }
     
-    static func remove(folder: Folder) {
+    func remove(folder: Folder) {
         moc.delete(folder)
     }
     
-    static func saveToPersistentStore() {
+    func saveToPersistentStore() {
         
         do {
             try moc.save()

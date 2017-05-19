@@ -357,7 +357,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notifile/Notifile.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W4BT774F98;
 				INFOPLIST_FILE = Notifile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SpencerCurtis.Notifile;
@@ -374,7 +374,7 @@
 				CODE_SIGN_ENTITLEMENTS = Notifile/Notifile.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W4BT774F98;
 				INFOPLIST_FILE = Notifile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SpencerCurtis.Notifile;

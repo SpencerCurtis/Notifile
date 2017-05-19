@@ -17,8 +17,11 @@ class FolderObserver {
     
     weak var delegate: FolderObserverDelegate?
     
-    init(url: URL) {
+    var eventTypes: DispatchSource.FileSystemEvent
+    
+    init(url: URL, eventTypes: DispatchSource.FileSystemEvent) {
         self.url = url
+        self.eventTypes = eventTypes
     }
  
     deinit {
@@ -35,7 +38,7 @@ class FolderObserver {
         fileDescriptor = open(url.path, O_EVTONLY)
     
         let queue = DispatchQueue(label: "com.SpencerCurtis.Notifile.\(url.absoluteString)")
-        self.fileSource = DispatchSource.makeFileSystemObjectSource(fileDescriptor: fileDescriptor, eventMask: [.write], queue: queue)
+        self.fileSource = DispatchSource.makeFileSystemObjectSource(fileDescriptor: fileDescriptor, eventMask: self.eventTypes, queue: queue)
         
         self.fileSource?.setEventHandler(handler: { 
             self.delegate?.changesWereObservedFor(folderObserver: self)

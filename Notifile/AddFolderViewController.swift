@@ -48,7 +48,7 @@ class AddFolderViewController: NSViewController {
     @IBAction func saveButtonClicked(_ sender: Any) {
         guard let selectedFolderPath = self.selectedFolderPathControl.url, let selectedItem = observationTypePopupButton.selectedItem, let observationType = ObservationType(rawValue: selectedItem.title) else { return }
         
-        let folder = FolderController.createFolderWith(url: selectedFolderPath, observationType: observationType)
+        let folder = FolderController.shared.createFolderWith(url: selectedFolderPath, observationType: observationType)
         delegate?.folderWasCreated(folder: folder)
         
         dismissSheet()
