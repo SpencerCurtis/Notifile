@@ -8,9 +8,12 @@
 
 import Cocoa
 
-class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, AddFolderDelegate {
+
+class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSPopoverDelegate, AddFolderDelegate, FolderNotificationCheckboxCellDelegate {
     
     @IBOutlet weak var tableView: NSTableView!
+    
+    var appearance: String!
     
     private enum CellIdentifiers: String {
         case folderNotificationCheckboxCell = "folderNotificationCheckboxCell"
@@ -20,7 +23,6 @@ class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        FolderController.mockFolders()
         self.tableView.dataSource = self
         self.tableView.delegate = self
     }
@@ -44,9 +46,37 @@ class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource
         
         self.tableView.reloadData()
     }
-    
+
     func folderWasCreated(folder: Folder?) {
         self.tableView.reloadData()
+    }
+
+    func toggleNotificationObservation(sender: FolderNotificationCheckboxCell) {
+        let row = tableView.row(for: sender)
+        
+        let folder = FolderController.shared.folders[row]
+        
+        let isObservationOn = sender.notificationsAreOnButton.state == 0 ? false : true
+        
+//        folder.isBeingObserved = isObservationOn
+        
+        FolderController.shared.toggleObservationFor(folder: folder)
+        
+        
+    }
+    func changeAppearanceForMenuStyle() {
+        if appearance == "Dark" {
+
+        } else {
+            
+        }
+    }
+    
+    
+    func popoverWillShow(_ notification: Notification) {
+        appearance = UserDefaults.standard.string(forKey: "AppleInterfaceStyle") ?? "Light"
+        tableView.reloadData()
+        changeAppearanceForMenuStyle()
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -68,7 +98,10 @@ class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource
             
             guard let cell = tableView.make(withIdentifier: CellIdentifiers.folderNotificationCheckboxCell.rawValue, owner: nil) as? FolderNotificationCheckboxCell else { return nil }
             
-            cell.notificationsAreOnButton.state = folder.isObserving == false ? 0 : 1
+            cell.notificationsAreOnButton.state = folder.isBeingObserved == false ? 0 : 1
+            cell.delegate = self
+            guard appearance != nil else { return cell }
+            if appearance == "Dark" && appearance != nil { cell.appearanceForDarkMenu() }
             
             return cell
             

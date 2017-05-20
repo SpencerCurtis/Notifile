@@ -28,13 +28,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         popover.behavior = .semitransient
         popover.contentViewController = observedFoldersListViewController
+        popover.delegate = observedFoldersListViewController
         
         NotificationCenter.default.addObserver(self, selector: #selector(closePopover(sender:)), name: closePopoverNotification, object: nil)
         togglePopover(sender: self)
 
         
-        
     }
+    func applicationWillTerminate(_ notification: Notification) {
+        FolderController.shared.removeObserversForAllFolders()
+    }
+
+    
     
     func togglePopover(sender: Any?) {
         popover.isShown == true ? closePopover(sender: sender) : showPopover(sender: sender)

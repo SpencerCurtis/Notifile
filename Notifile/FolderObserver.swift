@@ -11,27 +11,27 @@ import Foundation
 class FolderObserver {
     
     var fileDescriptor: CInt = -1
-    var url: URL
     var fileSource: DispatchSourceFileSystemObject?
     var isObserving = false
+    var folder: Folder
     
     weak var delegate: FolderObserverDelegate?
     
     var eventTypes: DispatchSource.FileSystemEvent
     
-    init(url: URL, eventTypes: DispatchSource.FileSystemEvent) {
-        self.url = url
+    init(folder: Folder, eventTypes: DispatchSource.FileSystemEvent) {
+        self.folder = folder
         self.eventTypes = eventTypes
     }
  
     deinit {
-        stopMonitoringChanges()
+        stopObservingChanges()
         print("Deinitializing FolderObserver")
     }
     
-    func observeChanges() {
+    func beginObservingChanges() {
         
-        guard !isObserving else { return }
+        guard let url = folder.url, !isObserving else { return }
         
         isObserving = true
         
@@ -48,7 +48,10 @@ class FolderObserver {
         
     }
     
-    func stopMonitoringChanges() {
+    func stopObservingChanges() {
+        
+        guard isObserving else { return }
+        
         self.fileSource?.cancel()
         close(self.fileDescriptor)
         isObserving = false

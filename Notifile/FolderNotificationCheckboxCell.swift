@@ -12,7 +12,19 @@ class FolderNotificationCheckboxCell: NSTableCellView {
 
     @IBOutlet weak var notificationsAreOnButton: NSButton!
     
+    weak var delegate: FolderNotificationCheckboxCellDelegate?
+    
     @IBAction func notificationsAreOnButtonClicked(_ sender: Any) {
+        delegate?.toggleNotificationObservation(sender: self)
+    }
+    
+    func appearanceForDarkMenu() {
         
     }
+    
+    
+}
+
+protocol FolderNotificationCheckboxCellDelegate: class {
+    func toggleNotificationObservation(sender: FolderNotificationCheckboxCell)
 }

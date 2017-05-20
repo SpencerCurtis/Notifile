@@ -23,21 +23,44 @@ class FolderController: FolderObserverDelegate {
         
         let fetchResults = try? moc.fetch(request)
         
+        fetchResults?.forEach({ setupFolderObserverFor(folder: $0) })
+        
         return fetchResults ?? []
     }
     
     var folderObservers: [FolderObserver] = []
     
-    @discardableResult  func createFolderWith(url: URL, observationType: ObservationType) -> Folder {
+    @discardableResult func createFolderWith(url: URL, observationType: ObservationType) -> Folder {
         let folder = Folder(url: url, observationType: observationType)
         
         saveToPersistentStore()
         
+        setupFolderObserverFor(folder: folder)
+        
         return folder
+    }
+    
+    @discardableResult func createFileWith(url: URL, folder: Folder) -> File {
+        let file = File(url: url, folder: folder)
+        saveToPersistentStore()
+        return file
     }
     
     func changesWereObservedFor(folderObserver: FolderObserver) {
         
+        let results = getDifferencesIn(folder: folderObserver.folder)
+        print(results.addedFiles)
+        switch folderObserver.folder.observationType {
+            
+        case .added:
+            break
+        case .deleted:
+            break
+        case .both:
+            break
+        default:
+            break
+        }
     }
     
     
@@ -66,9 +89,14 @@ class FolderController: FolderObserverDelegate {
         return addedFiles
     }
     
+    func removeObserversForAllFolders() {
+        self.folders.forEach({$0.hasObserver = false})
+        saveToPersistentStore()
+    }
+    
     func setupFolderObserverFor(folder: Folder) {
         
-        guard let folderURL = folder.url, !folder.hasObserver else { return }
+        guard folderObservers.filter({$0.folder == folder}).count == 0 else { return }
         
         var eventTypes: DispatchSource.FileSystemEvent = []
         
@@ -82,8 +110,15 @@ class FolderController: FolderObserverDelegate {
         default:
             break
         }
+        let fileURLs = getURLsForAllFilesIn(folder: folder, getURLsRecursively: false)
         
-        let folderObserver = FolderObserver(url: folderURL, eventTypes: eventTypes)
+        guard let preexistingFileURLS = folder.files?.flatMap({($0 as! File).urlString}) else { return }
+        
+        let newFileURLs = fileURLs.filter({!preexistingFileURLS.contains($0.absoluteString)})
+        
+        newFileURLs.forEach({createFileWith(url: $0, folder: folder)})
+        
+        let folderObserver = FolderObserver(folder: folder, eventTypes: eventTypes)
         
         folderObserver.delegate = self
         
@@ -91,7 +126,25 @@ class FolderController: FolderObserverDelegate {
         
         folder.hasObserver = true
         
+        toggleObservationFor(folder: folder)
+        
     }
+    
+    func toggleObservationFor(folder: Folder) {
+        
+        guard let folderObserver = folderObservers.filter({$0.folder == folder}).first else { return }
+        
+        if folder.isBeingObserved == true {
+            folderObserver.stopObservingChanges()
+            folder.isBeingObserved = false
+        } else {
+            folderObserver.beginObservingChanges()
+            folder.isBeingObserved = true
+        }
+        saveToPersistentStore()
+        
+    }
+    
     
     
     func checkForDeletedFilesIn(previousFiles: [URL], currentFiles: [URL]) -> [URL] {
@@ -136,8 +189,11 @@ class FolderController: FolderObserverDelegate {
         return folderContents
     }
     
+    // MARK: Persistence - Core Data
+    
     func remove(folder: Folder) {
         moc.delete(folder)
+        saveToPersistentStore()
     }
     
     func saveToPersistentStore() {

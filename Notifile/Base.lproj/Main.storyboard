@@ -737,7 +737,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="saveButtonClicked:" target="4Gg-JY-1Cf" id="YG3-aI-LUO"/>
+                                            <action selector="saveButtonClicked:" target="4Gg-JY-1Cf" id="vc3-8B-yEV"/>
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rIO-Ci-Y42">
@@ -820,11 +820,11 @@ Gw
                                     <rect key="frame" x="1" y="0.0" width="368" height="448"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="26" rowSizeStyle="automatic" headerView="rjH-dN-tbG" viewBased="YES" id="77X-Dl-YXF">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="26" rowSizeStyle="automatic" headerView="rjH-dN-tbG" viewBased="YES" id="77X-Dl-YXF">
                                             <rect key="frame" x="0.0" y="0.0" width="368" height="425"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.95778097750000002" green="0.95778097750000002" blue="0.95778097750000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
                                                 <tableColumn identifier="" width="48" minWidth="10" maxWidth="3.4028234663852886e+38" id="hWP-NB-j8f">

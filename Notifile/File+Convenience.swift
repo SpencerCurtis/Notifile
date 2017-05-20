@@ -11,10 +11,10 @@ import CoreData
 
 extension File {
     
-    @discardableResult convenience init(urlString: String, folder: Folder, context: NSManagedObjectContext = CoreDataStack.context) {
+    @discardableResult convenience init(url: URL, folder: Folder, context: NSManagedObjectContext = CoreDataStack.context) {
         self.init(context: context)
         
-        self.urlString = urlString
+        self.urlString = url.absoluteString
         self.folder = folder
     }
     
