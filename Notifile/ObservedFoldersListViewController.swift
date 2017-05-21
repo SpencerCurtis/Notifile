@@ -58,8 +58,10 @@ class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource
         
         let folder = FolderController.shared.folders[row]
         
-        FolderController.shared.toggleObservationFor(folder: folder)
+        let isBeingObserved = sender.notificationsAreOnButton.state == 0 ? false : true
         
+        FolderController.shared.toggleIsObservingFor(folder: folder, isBeingObserved: isBeingObserved)
+        FolderController.shared.toggleObservationFor(folder: folder)
         
     }
     

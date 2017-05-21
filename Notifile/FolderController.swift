@@ -52,8 +52,8 @@ class FolderController: FolderObserverDelegate {
     func changesWereObservedFor(folderObserver: FolderObserver) {
         
         let modifiedFiles = getDifferencesIn(folder: folderObserver.folder)
-        
-        FileNotificationController.sendFileNotificationWith(folder: folderObserver.folder, modifiedFiles: modifiedFiles)
+       print("Changed observed")
+//        FileNotificationController.sendFileNotificationWith(folder: folderObserver.folder, modifiedFiles: modifiedFiles)
     }
     
     
@@ -129,16 +129,17 @@ class FolderController: FolderObserverDelegate {
         
         if folder.isBeingObserved == true {
             folderObserver.stopObservingChanges()
-            folder.isBeingObserved = false
         } else {
             folderObserver.beginObservingChanges()
-            folder.isBeingObserved = true
         }
         saveToPersistentStore()
         
     }
     
-    
+    func toggleIsObservingFor(folder: Folder, isBeingObserved: Bool) {
+        folder.isBeingObserved = isBeingObserved
+        saveToPersistentStore()
+    }
     
     func checkForDeletedFilesIn(previousFiles: [URL], currentFiles: [URL]) -> [URL] {
         
