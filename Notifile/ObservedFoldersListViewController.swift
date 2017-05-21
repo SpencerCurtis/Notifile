@@ -13,7 +13,9 @@ class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource
     
     @IBOutlet weak var tableView: NSTableView!
     
-    var appearance: String!
+    var appearance: String {
+        return UserDefaults.standard.string(forKey: "AppleInterfaceStyle") ?? "Light"
+    }
     
     private enum CellIdentifiers: String {
         case folderNotificationCheckboxCell = "folderNotificationCheckboxCell"
@@ -56,14 +58,11 @@ class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource
         
         let folder = FolderController.shared.folders[row]
         
-        let isObservationOn = sender.notificationsAreOnButton.state == 0 ? false : true
-        
-//        folder.isBeingObserved = isObservationOn
-        
         FolderController.shared.toggleObservationFor(folder: folder)
         
         
     }
+    
     func changeAppearanceForMenuStyle() {
         if appearance == "Dark" {
 
@@ -72,12 +71,14 @@ class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource
         }
     }
     
+    // MARK: - NSPopoverDelegate
     
     func popoverWillShow(_ notification: Notification) {
-        appearance = UserDefaults.standard.string(forKey: "AppleInterfaceStyle") ?? "Light"
         tableView.reloadData()
         changeAppearanceForMenuStyle()
     }
+    
+    // MARK: - NSTableViewDataSource/Delegate
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         return FolderController.shared.folders.count
@@ -100,8 +101,8 @@ class ObservedFoldersListViewController: NSViewController, NSTableViewDataSource
             
             cell.notificationsAreOnButton.state = folder.isBeingObserved == false ? 0 : 1
             cell.delegate = self
-            guard appearance != nil else { return cell }
-            if appearance == "Dark" && appearance != nil { cell.appearanceForDarkMenu() }
+            
+            if appearance == "Dark" { cell.appearanceForDarkMenu() }
             
             return cell
             

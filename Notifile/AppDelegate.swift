@@ -35,10 +35,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         
     }
-    func applicationWillTerminate(_ notification: Notification) {
-        FolderController.shared.removeObserversForAllFolders()
-    }
-
     
     
     func togglePopover(sender: Any?) {

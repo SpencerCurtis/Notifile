@@ -21,6 +21,8 @@
 		46A8CE591ECE0024002E6E71 /* Folder+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE581ECE0024002E6E71 /* Folder+Convenience.swift */; };
 		46A8CE5B1ECE015A002E6E71 /* FolderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE5A1ECE015A002E6E71 /* FolderController.swift */; };
 		46A8CE5D1ECE0AF8002E6E71 /* File+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A8CE5C1ECE0AF8002E6E71 /* File+Convenience.swift */; };
+		46DB69601ED1393A00DCFA3A /* FileNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DB695F1ED1393A00DCFA3A /* FileNotification.swift */; };
+		46DB69621ED13C5200DCFA3A /* FileNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DB69611ED13C5200DCFA3A /* FileNotificationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		46A8CE581ECE0024002E6E71 /* Folder+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Folder+Convenience.swift"; sourceTree = "<group>"; };
 		46A8CE5A1ECE015A002E6E71 /* FolderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderController.swift; sourceTree = "<group>"; };
 		46A8CE5C1ECE0AF8002E6E71 /* File+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "File+Convenience.swift"; sourceTree = "<group>"; };
+		46DB695F1ED1393A00DCFA3A /* FileNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileNotification.swift; sourceTree = "<group>"; };
+		46DB69611ED13C5200DCFA3A /* FileNotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileNotificationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,7 @@
 			children = (
 				46A8CE581ECE0024002E6E71 /* Folder+Convenience.swift */,
 				46A8CE5C1ECE0AF8002E6E71 /* File+Convenience.swift */,
+				46DB695F1ED1393A00DCFA3A /* FileNotification.swift */,
 				46A8CE561ECDFFCF002E6E71 /* CoreDataStack.swift */,
 				46A8CE531ECDFF11002E6E71 /* Notifile.xcdatamodeld */,
 			);
@@ -108,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				46A8CE5A1ECE015A002E6E71 /* FolderController.swift */,
+				46DB69611ED13C5200DCFA3A /* FileNotificationController.swift */,
 				46A8CE471ECD69D4002E6E71 /* FolderObserver.swift */,
 			);
 			name = "Model Controllers + Helpers";
@@ -236,6 +242,8 @@
 				46A8CE501ECDF4C9002E6E71 /* NotificationTriggerTableViewCellView.swift in Sources */,
 				46A8CE591ECE0024002E6E71 /* Folder+Convenience.swift in Sources */,
 				46A8CE351ECD6885002E6E71 /* AppDelegate.swift in Sources */,
+				46DB69621ED13C5200DCFA3A /* FileNotificationController.swift in Sources */,
+				46DB69601ED1393A00DCFA3A /* FileNotification.swift in Sources */,
 				46A8CE571ECDFFCF002E6E71 /* CoreDataStack.swift in Sources */,
 				46A8CE481ECD69D4002E6E71 /* FolderObserver.swift in Sources */,
 				46A8CE5D1ECE0AF8002E6E71 /* File+Convenience.swift in Sources */,

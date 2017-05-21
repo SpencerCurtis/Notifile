@@ -9,9 +9,12 @@
 import Foundation
 import CoreData
 
+typealias ModifiedFiles = (addedFiles: [URL], deletedFiles: [URL])
+
 class FolderController: FolderObserverDelegate {
     
     static let shared = FolderController()
+    
     
     let fileManager = FileManager()
     
@@ -48,23 +51,13 @@ class FolderController: FolderObserverDelegate {
     
     func changesWereObservedFor(folderObserver: FolderObserver) {
         
-        let results = getDifferencesIn(folder: folderObserver.folder)
-        print(results.addedFiles)
-        switch folderObserver.folder.observationType {
-            
-        case .added:
-            break
-        case .deleted:
-            break
-        case .both:
-            break
-        default:
-            break
-        }
+        let modifiedFiles = getDifferencesIn(folder: folderObserver.folder)
+        
+        FileNotificationController.sendFileNotificationWith(folder: folderObserver.folder, modifiedFiles: modifiedFiles)
     }
     
     
-    func getDifferencesIn(folder: Folder) -> (addedFiles: [URL], deletedFiles: [URL]) {
+    func getDifferencesIn(folder: Folder) -> ModifiedFiles {
         
         guard let previousFiles = folder.files?.array as? [URL] else { return ([], []) }
         
