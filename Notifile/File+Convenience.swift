@@ -18,4 +18,9 @@ extension File {
         self.folder = folder
     }
     
+    var url: URL? {
+        guard let urlString = urlString else { return nil }
+        return URL(string: urlString)
+    }
+    
 }

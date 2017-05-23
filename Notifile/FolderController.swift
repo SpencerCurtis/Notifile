@@ -20,11 +20,16 @@ class FolderController: FolderObserverDelegate {
     
     let moc = CoreDataStack.context
     
+    var foldersHaveBeenFetchedBefore = false
+    
     var folders: [Folder] {
         
         let request: NSFetchRequest<Folder> = Folder.fetchRequest()
         
         let fetchResults = try? moc.fetch(request)
+        
+        if !foldersHaveBeenFetchedBefore { fetchResults?.forEach({$0.isBeingObserved = false}) }
+        foldersHaveBeenFetchedBefore = true
         
         fetchResults?.forEach({ setupFolderObserverFor(folder: $0) })
         
@@ -49,22 +54,28 @@ class FolderController: FolderObserverDelegate {
         return file
     }
     
+    func delete(file: File) {
+        moc.delete(file)
+        saveToPersistentStore()
+    }
+    
     func changesWereObservedFor(folderObserver: FolderObserver) {
         
         let modifiedFiles = getDifferencesIn(folder: folderObserver.folder)
        print("Changed observed")
-//        FileNotificationController.sendFileNotificationWith(folder: folderObserver.folder, modifiedFiles: modifiedFiles)
+        FileNotificationController.sendFileNotificationWith(folder: folderObserver.folder, modifiedFiles: modifiedFiles)
     }
     
     
     func getDifferencesIn(folder: Folder) -> ModifiedFiles {
         
-        guard let previousFiles = folder.files?.array as? [URL] else { return ([], []) }
+        guard let previousFiles = folder.files?.array as? [File] else { return ([], []) }
         
+        let previousFileURLs = previousFiles.flatMap({$0.url})
         let currentFiles = getURLsForAllFilesIn(folder: folder, getURLsRecursively: false)
         
-        let addedFiles = checkForAddedFilesIn(previousFiles: previousFiles, currentFiles: currentFiles)
-        let deletedFiles = checkForDeletedFilesIn(previousFiles: previousFiles, currentFiles: currentFiles)
+        let addedFiles = checkForAddedFilesIn(previousFiles: previousFileURLs, currentFiles: currentFiles)
+        let deletedFiles = checkForDeletedFilesIn(previousFiles: previousFileURLs, currentFiles: currentFiles)
         
         return (addedFiles, deletedFiles)
     }
@@ -103,6 +114,7 @@ class FolderController: FolderObserverDelegate {
         default:
             break
         }
+        
         let fileURLs = getURLsForAllFilesIn(folder: folder, getURLsRecursively: false)
         
         guard let preexistingFileURLS = folder.files?.flatMap({($0 as! File).urlString}) else { return }
@@ -132,13 +144,29 @@ class FolderController: FolderObserverDelegate {
         } else {
             folderObserver.beginObservingChanges()
         }
-        saveToPersistentStore()
         
     }
     
     func toggleIsObservingFor(folder: Folder, isBeingObserved: Bool) {
         folder.isBeingObserved = isBeingObserved
         saveToPersistentStore()
+    }
+    
+    func update(folder: Folder, with modifiedFiles: ModifiedFiles) {
+        
+        guard let folderFiles = folder.files?.array as? [File] else { return }
+
+        for file in modifiedFiles.addedFiles {
+            FolderController.shared.createFileWith(url: file, folder: folder)
+        }
+        
+        for deletedFileURL in modifiedFiles.deletedFiles {
+            
+            guard let file = folderFiles.filter({$0.urlString == deletedFileURL.absoluteString}).first else { return }
+            
+            FolderController.shared.delete(file: file)
+        }
+
     }
     
     func checkForDeletedFilesIn(previousFiles: [URL], currentFiles: [URL]) -> [URL] {

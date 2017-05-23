@@ -36,6 +36,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
     }
     
+    func applicationWillTerminate(_ notification: Notification) {
+        FolderController.shared.removeObserversForAllFolders()
+    }
+
+    
     
     func togglePopover(sender: Any?) {
         popover.isShown == true ? closePopover(sender: sender) : showPopover(sender: sender)

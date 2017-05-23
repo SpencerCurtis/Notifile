@@ -21,7 +21,7 @@ class FileNotificationController {
         let addedFileNames = modifiedFiles.addedFiles.flatMap({$0.lastPathComponent})
         
         let deletedFileNames = modifiedFiles.deletedFiles.flatMap({$0.lastPathComponent})
-        
+            
         switch folder.observationType {
         case .added:
             
@@ -32,7 +32,7 @@ class FileNotificationController {
                 notificationTitle = "New file in \(folderName)"
                 notificationBody = "\(addedFileNames[0]) was added"
             }
-            
+                      
         case .deleted:
             
             if deletedFileNames.count > 1 {
@@ -43,7 +43,6 @@ class FileNotificationController {
                 notificationBody = "\(deletedFileNames[0]) was deleted"
             }
             
-            
         case .both:
             notificationTitle = "Both observation types not yet supported."
             notificationBody = "Something has changed in \(folderName)"
@@ -53,19 +52,14 @@ class FileNotificationController {
         }
         
         
-        
         let fileNotification = FileNotification(title: notificationTitle, body: notificationBody)
+        
+        FolderController.shared.update(folder: folder, with: modifiedFiles)
         
         CKContainer.default().privateCloudDatabase.save(fileNotification.cloudKitRecord) { (record, error) in
             if let error = error { NSLog(error.localizedDescription) }
             
             
         }
-        
-        
     }
-    
-    
-    
-    
 }
