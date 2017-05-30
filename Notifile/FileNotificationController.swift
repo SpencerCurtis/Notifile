@@ -9,10 +9,39 @@
 import Foundation
 import CloudKit
 
-class FileNotificationController {
+@objc class FileNotificationController: NSObject, NSUserNotificationCenterDelegate {
     
-    static func sendFileNotificationWith(folder: Folder, modifiedFiles: ModifiedFiles) {
+    static let shared = FileNotificationController() 
+    
+    func sendFileNotificationWith(folder: Folder, modifiedFiles: ModifiedFiles) {
         
+        let titleAndBody = getTitleAndBodyFrom(folder: folder, modifiedFiles: modifiedFiles)
+        
+        let fileNotification = FileNotification(title: titleAndBody.title, body: titleAndBody.body)
+        
+        FolderController.shared.update(folder: folder, with: modifiedFiles)
+        
+        CKContainer.default().privateCloudDatabase.save(fileNotification.cloudKitRecord) { (record, error) in
+            if let error = error { NSLog(error.localizedDescription) }
+        }
+    }
+    
+    func sendUserNotificationWith(folder: Folder, modifiedFiles: ModifiedFiles) {
+        let notification = NSUserNotification()
+        
+        let titleAndBody = getTitleAndBodyFrom(folder: folder, modifiedFiles: modifiedFiles)
+        
+        notification.title = titleAndBody.title
+        
+        notification.informativeText = titleAndBody.body
+        
+        notification.deliveryDate = Date()
+        
+        NSUserNotificationCenter.default.deliver(notification)
+        
+    }
+    
+    func getTitleAndBodyFrom(folder: Folder, modifiedFiles: ModifiedFiles) -> (title: String, body: String) {
         var notificationTitle = ""
         var notificationBody = ""
         
@@ -21,7 +50,7 @@ class FileNotificationController {
         let addedFileNames = modifiedFiles.addedFiles.flatMap({$0.lastPathComponent})
         
         let deletedFileNames = modifiedFiles.deletedFiles.flatMap({$0.lastPathComponent})
-            
+        
         switch folder.observationType {
         case .added:
             
@@ -32,7 +61,7 @@ class FileNotificationController {
                 notificationTitle = "New file in \(folderName)"
                 notificationBody = "\(addedFileNames[0]) was added"
             }
-                      
+            
         case .deleted:
             
             if deletedFileNames.count > 1 {
@@ -46,20 +75,16 @@ class FileNotificationController {
         case .both:
             notificationTitle = "Both observation types not yet supported."
             notificationBody = "Something has changed in \(folderName)"
-        
+            
         default:
             break
         }
         
-        
-        let fileNotification = FileNotification(title: notificationTitle, body: notificationBody)
-        
-        FolderController.shared.update(folder: folder, with: modifiedFiles)
-        
-        CKContainer.default().privateCloudDatabase.save(fileNotification.cloudKitRecord) { (record, error) in
-            if let error = error { NSLog(error.localizedDescription) }
-            
-            
-        }
+        return (notificationTitle, notificationBody)
     }
+    
+    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
+        return true
+    }
+    
 }

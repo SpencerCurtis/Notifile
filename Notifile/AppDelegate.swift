@@ -32,6 +32,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(closePopover(sender:)), name: closePopoverNotification, object: nil)
         togglePopover(sender: self)
+        
+        NSUserNotificationCenter.default.delegate = FileNotificationController.shared
 
         
     }

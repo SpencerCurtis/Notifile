@@ -63,7 +63,8 @@ class FolderController: FolderObserverDelegate {
         
         let modifiedFiles = getDifferencesIn(folder: folderObserver.folder)
        print("Changed observed")
-        FileNotificationController.sendFileNotificationWith(folder: folderObserver.folder, modifiedFiles: modifiedFiles)
+        FileNotificationController.shared.sendFileNotificationWith(folder: folderObserver.folder, modifiedFiles: modifiedFiles)
+        FileNotificationController.shared.sendUserNotificationWith(folder: folderObserver.folder, modifiedFiles: modifiedFiles)
     }
     
     
