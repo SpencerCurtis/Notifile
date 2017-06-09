@@ -10,7 +10,7 @@
         <attribute name="observationTypeString" attributeType="String" syncable="YES"/>
         <attribute name="shouldBeObserved" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="urlString" attributeType="String" syncable="YES"/>
-        <relationship name="files" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="File" inverseName="folder" inverseEntity="File" syncable="YES"/>
+        <relationship name="files" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="File" inverseName="folder" inverseEntity="File" syncable="YES"/>
     </entity>
     <elements>
         <element name="File" positionX="241" positionY="-9" width="128" height="73"/>
