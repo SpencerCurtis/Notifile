@@ -18,9 +18,10 @@ enum ObservationType: String {
 
 extension Folder {
     
-    @discardableResult convenience init(url: URL, observationType: ObservationType, isBeingObserved: Bool = false, hasObserver: Bool = false, files: [URL] = [], context: NSManagedObjectContext = CoreDataStack.context) {
+    @discardableResult convenience init(url: URL, observationType: ObservationType, isBeingObserved: Bool = false, hasObserver: Bool = false, shouldBeObserved: Bool = false, files: [URL] = [], context: NSManagedObjectContext = CoreDataStack.context) {
         self.init(context: context)
         
+        self.shouldBeObserved = shouldBeObserved
         self.isBeingObserved = isBeingObserved
         self.hasObserver = hasObserver
         self.urlString = url.absoluteString

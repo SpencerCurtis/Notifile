@@ -14,11 +14,12 @@ typealias ModifiedFiles = (addedFiles: [URL], deletedFiles: [URL])
 class FolderController: FolderObserverDelegate {
     
     static let shared = FolderController()
-    
-    
+
     let fileManager = FileManager()
     
     let moc = CoreDataStack.context
+    
+    var foldersHaveObserversNotification = Notification.Name("foldersHaveObservers")
     
     var foldersHaveBeenFetchedBefore = false
     
@@ -32,6 +33,7 @@ class FolderController: FolderObserverDelegate {
         foldersHaveBeenFetchedBefore = true
         
         fetchResults?.forEach({ setupFolderObserverFor(folder: $0) })
+        
         
         return fetchResults ?? []
     }
@@ -62,7 +64,7 @@ class FolderController: FolderObserverDelegate {
     func changesWereObservedFor(folderObserver: FolderObserver) {
         
         let modifiedFiles = getDifferencesIn(folder: folderObserver.folder)
-       print("Changed observed")
+       print("Changes observed")
         FileNotificationController.shared.sendFileNotificationWith(folder: folderObserver.folder, modifiedFiles: modifiedFiles)
         FileNotificationController.shared.sendUserNotificationWith(folder: folderObserver.folder, modifiedFiles: modifiedFiles)
     }
@@ -134,22 +136,25 @@ class FolderController: FolderObserverDelegate {
         
         toggleObservationFor(folder: folder)
         
+        NotificationCenter.default.post(name: foldersHaveObserversNotification, object: self, userInfo: ["folder": folder])
+        
+        
     }
     
     func toggleObservationFor(folder: Folder) {
         
         guard let folderObserver = folderObservers.filter({$0.folder == folder}).first else { return }
         
-        if folder.isBeingObserved == true {
-            folderObserver.stopObservingChanges()
-        } else {
+        if folder.shouldBeObserved == true {
             folderObserver.beginObservingChanges()
+        } else {
+            folderObserver.stopObservingChanges()
         }
         
     }
     
-    func toggleIsObservingFor(folder: Folder, isBeingObserved: Bool) {
-        folder.isBeingObserved = isBeingObserved
+    func toggleShouldBeObservedFor(folder: Folder, shouldBeObserved: Bool) {
+        folder.shouldBeObserved = shouldBeObserved
         saveToPersistentStore()
     }
     

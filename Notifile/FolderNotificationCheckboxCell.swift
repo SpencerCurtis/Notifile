@@ -14,6 +14,17 @@ class FolderNotificationCheckboxCell: NSTableCellView {
     
     weak var delegate: FolderNotificationCheckboxCellDelegate?
     
+    var folder: Folder? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    func updateViews() {
+        guard let folder = folder else { return }
+        self.notificationsAreOnButton.state = folder.shouldBeObserved == false ? 0 : 1
+    }
+    
     @IBAction func notificationsAreOnButtonClicked(_ sender: Any) {
         delegate?.toggleNotificationObservation(sender: self)
     }
